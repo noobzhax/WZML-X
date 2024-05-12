@@ -14,8 +14,10 @@ ALLOWED_EXTS = [
 
 API_KEY = "398163bd8074vqvx2lyn6o"
 
+
 class Doostream:
 	"""docstring for Doostream"""
+
 	def __init__(self, dluploader):
 		self.apiKey = API_KEY
 		self.dluploader = dluploader
