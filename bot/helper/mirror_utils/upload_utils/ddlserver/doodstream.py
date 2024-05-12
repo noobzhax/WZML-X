@@ -25,9 +25,9 @@ class Doostream:
 
 	async def __getAccInfo(self):
 		async with ClientSession() as session, session.get(f"{self.base_url}/api/account/info?key={self.apiKey}") as response:
-		if response.status == 200:
-			if (data := await response.json()) and data["status"] == 200:
-				return data["result"]
+			if response.status == 200:
+				if (data := await response.json()) and data["status"] == 200:
+					return data["result"]
 		return None
 
 	async def __getServer(self):
