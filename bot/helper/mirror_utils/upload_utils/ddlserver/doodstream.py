@@ -52,7 +52,7 @@ class Doostream:
         return await self.__resp_handler(upload_file)
 
     async def upload(self, file_path):
-        if not await self.__getAccInfo(self.apiKey):
+        if not await self.__getAccInfo():
             raise Exception("Invalid doodstream API Key, Recheck your account !!")
         if await aiopath.isfile(file_path):
             if (gCode := await self.upload_file(path=file_path)) and gCode.get("download_url", False):
