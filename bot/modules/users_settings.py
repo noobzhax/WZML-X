@@ -565,7 +565,7 @@ async def edit_user_settings(client, query):
         await update_user_settings(query, 'leech')
         if DATABASE_URL:
             await DbManger().update_user_data(user_id)
-    elif data[2] in ['sgofile', 'sstreamtape', 'dgofile', 'dstreamtape']:
+    elif data[2] in ['sgofile', 'sstreamtape', 'sdoodstream', 'dgofile', 'dstreamtape', 'ddoodstream']:
         handler_dict[user_id] = False
         ddl_dict = user_dict.get('ddl_servers', {})
         key = data[2][1:]
