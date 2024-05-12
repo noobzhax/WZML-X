@@ -13,6 +13,7 @@ from aiohttp.client_exceptions import ContentTypeError
 from bot import LOGGER, user_data
 from bot.helper.mirror_utils.upload_utils.ddlserver.gofile import Gofile
 from bot.helper.mirror_utils.upload_utils.ddlserver.streamtape import Streamtape
+from bot.helper.mirror_utils.upload_utils.ddlserver.doodstream import Doodstream
 from bot.helper.ext_utils.fs_utils import get_mime_type
 
 
@@ -88,6 +89,13 @@ class DDLUploader:
                         raise Exception("StreamTape Login & Key not Found, Kindly Recheck !")
                     nlink = await Streamtape(self, login, key).upload(file_path)
                     all_links['StreamTape'] = nlink
+                if serv == 'doodstream':
+                    self.__engine = 'Doodstream API'
+                    try:
+                        nlink = await Doodstream(self).upload(file_path)
+                        all_links['DoodStream'] = nlink
+                    except Exception as e:
+                        raise e
                 self.__processed_bytes = 0
         if not all_links:
             raise Exception("No DDL Enabled to Upload.")
