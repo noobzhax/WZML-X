@@ -23,12 +23,12 @@ class Doostream:
 		self.dluploader = dluploader
 		self.base_url = "https://doodapi.com"
 
-	# async def __getAccInfo(self):
-	#	 async with ClientSession() as session, session.get(f"{self.base_url}/api/account/info?key={self.apiKey}") as response:
-	#		 if response.status == 200:
-	#			 if (data := await response.json()) and data["status"] == 200:
-	#				 return data["result"]
-	#	 return None
+	async def __getAccInfo(self):
+		async with ClientSession() as session, session.get(f"{self.base_url}/api/account/info?key={self.apiKey}") 		response:
+		if response.status == 200:
+			if (data := await response.json()) and data["status"] == 200:
+				return data["result"]
+		return None
 
 	async def __getServer(self):
 		async with ClientSession() as session:
@@ -52,8 +52,8 @@ class Doostream:
 		return await self.__resp_handler(upload_file)
 
 	async def upload(self, file_path):
-		# if not await self.__getAccInfo():
-		#	 raise Exception("Invalid doodstream API Key, Recheck your account !!")
+		if not await self.__getAccInfo():
+			raise Exception("Invalid doodstream API Key, Recheck your account !!")
 		if await aiopath.isfile(file_path):
 			if (gCode := await self.upload_file(path=file_path)) and gCode.get("download_url", False):
 				return gCode['download_url']
