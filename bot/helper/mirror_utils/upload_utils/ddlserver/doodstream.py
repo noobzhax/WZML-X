@@ -12,14 +12,11 @@ ALLOWED_EXTS = [
 	'.m2v', '.divx', '.3gp', '.webm', '.ogv', '.ogg', '.ts', '.ogm'
 ]
 
-API_KEY = "398163bd8074vqvx2lyn6o"
-
-
 class Doodstream:
 	"""docstring for Doostream"""
 
-	def __init__(self, dluploader):
-		self.apiKey = API_KEY
+	def __init__(self, dluploader, api_key):
+		self.apiKey = api_key
 		self.dluploader = dluploader
 		self.base_url = "https://doodapi.com"
 

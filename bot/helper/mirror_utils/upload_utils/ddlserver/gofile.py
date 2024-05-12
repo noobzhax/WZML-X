@@ -19,7 +19,7 @@ class Gofile:
         if token is None:
             return
         async with ClientSession() as session:
-            async with session.get(f"https://api.gofile.io/accounts/{token.split(':')[0]}?token={token.split(':')[1]}&allDetails=true") as resp:
+            async with session.get(f"{self.api_url}/accounts/{token.split(':')[0]}?token={token.split(':')[1]}&allDetails=true") as resp:
                 if (await resp.json())["status"] == "ok":
                     return True
         return False

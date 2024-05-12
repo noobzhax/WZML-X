@@ -92,7 +92,7 @@ class DDLUploader:
                 if serv == 'doodstream':
                     self.__engine = 'Doodstream API'
                     try:
-                        nlink = await Doodstream(self).upload(file_path)
+                        nlink = await Doodstream(self, api_key).upload(file_path)
                         all_links['DoodStream'] = nlink
                     except Exception as e:
                         raise e
