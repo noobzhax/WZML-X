@@ -44,6 +44,7 @@ class Doodstream:
 
 	async def upload_file(self, path: str):
 		server = (await self.__getServer())["result"]
+		LOGGER.info(f"Using: {server}")
 		apiKey = self.apiKey if self.apiKey else ""
 		req_dict = {}
 		if apiKey:
