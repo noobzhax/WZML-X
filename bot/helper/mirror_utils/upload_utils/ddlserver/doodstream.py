@@ -23,6 +23,13 @@ class Doodstream:
 		self.dluploader = dluploader
 		self.base_url = "https://doodapi.com"
 
+	async def __resp_handler(self, response):
+		api_resp = response.get("status", "")
+		if api_resp == "ok":
+			return response["data"]
+		raise Exception(api_resp.split("-")[1] if "error-" in api_resp else "Response Status is not ok and Reason is Unknown")
+
+
 	async def __getAccInfo(self):
 		async with ClientSession() as session, session.get(f"{self.base_url}/api/account/info?key={self.apiKey}") as response:
 			if response.status == 200:
