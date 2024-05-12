@@ -40,10 +40,11 @@ class Doodstream:
 	async def __getServer(self):
 		async with ClientSession() as session:
 			async with session.get(f"{self.base_url}/api/upload/server?key={self.apiKey}") as resp:
-				return await self.__resp_handler(await resp.json())
+				serv = await resp.json()
+				return serv['result']
 
 	async def upload_file(self, path: str):
-		server = (await self.__getServer())["result"]
+		server = (await self.__getServer())
 		LOGGER.info(f"Using: {server}")
 		apiKey = self.apiKey if self.apiKey else ""
 		req_dict = {}
@@ -58,7 +59,7 @@ class Doodstream:
 		LOGGER.info(req_dict)
 		upload_file = await self.dluploader.upload_aiohttp(f"{server}", new_path, "file", req_dict)
 		LOGGER.info(upload_file)
-		return await self.__resp_handler(upload_file)
+		return upload_file 
 
 	async def upload(self, file_path):
 		if not await self.__getAccInfo():
