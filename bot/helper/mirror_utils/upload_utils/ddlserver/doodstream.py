@@ -54,9 +54,9 @@ class Doodstream:
 		new_path = ospath.join(ospath.dirname(path), ospath.basename(path).replace(' ', '.'))
 		await aiorename(path, new_path)
 		self.dluploader.last_uploaded = 0
-        LOGGER.info(req_dict)
+		LOGGER.info(req_dict)
 		upload_file = await self.dluploader.upload_aiohttp(f"{server}", new_path, "file", req_dict)
-        LOGGER.info(upload_file)
+		LOGGER.info(upload_file)
 		return await self.__resp_handler(upload_file)
 
 	async def upload(self, file_path):
