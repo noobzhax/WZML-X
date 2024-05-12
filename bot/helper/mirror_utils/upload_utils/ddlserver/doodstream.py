@@ -62,11 +62,12 @@ class Doodstream:
 		return upload_file 
 
 	async def upload(self, file_path):
+		resl = None
 		if not await self.__getAccInfo():
 			raise Exception("Invalid doodstream API Key, Recheck your account !!")
 		if await aiopath.isfile(file_path):
-			if (gCode := await self.upload_file(path=file_path)) and gCode.get("download_url", False):
-				return gCode['download_url']
+			resl = await self.upload_file(path=file_path)
+			return resl['result']['download_url']
 		if self.dluploader.is_cancelled:
 			return
 		raise Exception("Failed to upload file/folder to doodstream API, Retry or Try after sometimes...")
