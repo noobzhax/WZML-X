@@ -24,9 +24,9 @@ class Doodstream:
 		self.base_url = "https://doodapi.com"
 
 	async def __resp_handler(self, response):
-		api_resp = response.get("status", "")
+		api_resp = response.get("msg", "")
 		if api_resp == "ok":
-			return response["data"]
+			return response["result"]
 		raise Exception(api_resp.split("-")[1] if "error-" in api_resp else "Response Status is not ok and Reason is Unknown")
 
 
@@ -40,8 +40,7 @@ class Doodstream:
 	async def __getServer(self):
 		async with ClientSession() as session:
 			async with session.get(f"{self.base_url}/api/upload/server?key={self.apiKey}") as resp:
-				LOGGER.debug(resp.json())
-				return await resp.json()
+				return await self.__resp_handler(await resp.json())
 
 	async def upload_file(self, path: str):
 		server = (await self.__getServer())["result"]
@@ -57,8 +56,7 @@ class Doodstream:
 		await aiorename(path, new_path)
 		self.dluploader.last_uploaded = 0
 		upload_file = await self.dluploader.upload_aiohttp(f"{server}", new_path, "file", req_dict)
-		LOGGER.debug(upload_file)
-		return await upload_file
+		return await self.__resp_handler(upload_file)
 
 	async def upload(self, file_path):
 		if not await self.__getAccInfo():
