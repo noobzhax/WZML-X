@@ -36,7 +36,7 @@ class Doostream:
                 return await self.__resp_handler(await resp.json())
 
     async def upload_file(self, path: str):
-    	server = (await self.__getServer())["result"]
+        server = (await self.__getServer())["result"]
         apiKey = self.apiKey if self.apiKey else ""
         req_dict = {}
         if apiKey:
@@ -60,6 +60,3 @@ class Doostream:
         if self.dluploader.is_cancelled:
             return
         raise Exception("Failed to upload file/folder to doodstream API, Retry or Try after sometimes...")
-
-
-		
